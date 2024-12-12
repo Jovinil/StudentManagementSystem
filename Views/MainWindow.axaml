@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:StudentManagementSystem.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="440"
+        x:Class="StudentManagementSystem.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="StudentManagementSystem">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<SplitView IsPaneOpen="{Binding IsPaneOpen}"
+		   OpenPaneLength="200"
+		   CompactPaneLength="48"
+		   DisplayMode="CompactInline"
+		   Background="#1e1e1e"
+	       PaneBackground="#1e1e1e">
+		<SplitView.Pane>
+			<Grid>
+				<!-- Define two rows: one for the main navigation and one for the footer -->
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" /> <!-- Main content fills remaining space -->
+					<RowDefinition Height="Auto" /> <!-- Footer stays at the bottom -->
+				</Grid.RowDefinitions>
+
+				<!-- Main Navigation -->
+				<StackPanel Spacing="5" Margin="5" Grid.Row="0">
+					<Button Command="{Binding TriggerPaneCommand}">
+						<PathIcon Data="{StaticResource line_horizontal_3_regular}" />
+					</Button>
+					<ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
+						<ListBox.ItemTemplate>
+							<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
+								<StackPanel Spacing="15" Orientation="Horizontal">
+									<PathIcon Data="{Binding ListItemIcon}" />
+									<TextBlock Text="{Binding Label}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+
+				<!-- Footer Navigation -->
+				<StackPanel Grid.Row="1" Background="#2d2d2d" Margin="5">
+					<ListBox ItemsSource="{Binding FooterItems}" SelectedItem="{Binding SelectedFooterItem}">
+						<ListBox.ItemTemplate>
+							<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
+								<StackPanel Spacing="15" Orientation="Horizontal">
+									<PathIcon Data="{Binding ListItemIcon}" />
+									<TextBlock Text="{Binding Label}" />
+								</StackPanel>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</Grid>
+		</SplitView.Pane>
+		<SplitView.Content>
+			<Border CornerRadius="12 0 0 0"
+					Background="#2d2d2d"
+					Padding="20">
+					<TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
+			</Border>
+		</SplitView.Content>
+	</SplitView>
+
+
+
+</Window>

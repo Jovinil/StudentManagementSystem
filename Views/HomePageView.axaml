@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:StudentManagementSystem.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudentManagementSystem.Views.HomePageView"
+             x:DataType="viewModels:HomePageViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Header section -->
+            <RowDefinition Height="*" />     <!-- DataGrid Section -->
+        </Grid.RowDefinitions>
+
+        <!-- Dashboard Header -->
+        <StackPanel Grid.Row="0" Margin="20">
+            <TextBlock Text="Dashboard" FontSize="32" FontWeight="Bold" />
+            <TextBlock Text="Student Data Table" FontSize="20" Foreground="Gray" />
+        </StackPanel>
+
+        <!-- DataGrid Section -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding StudentData}" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" Margin="20">
+            <DataGrid.Columns>
+                <!-- Name Column -->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+
+                <!-- Block Column -->
+                <DataGridTextColumn Header="Block" Binding="{Binding Block}" Width="*" />
+
+                <!-- Year Column -->
+                <DataGridTextColumn Header="Year" Binding="{Binding Year}" Width="*" />
+
+                <!-- Grade Column -->
+                <DataGridTextColumn Header="Grade" Binding="{Binding Grade}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
