@@ -1,21 +1,19 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 
 namespace StudentManagementSystem.ViewModels
 {
-    public partial class HomePageViewModel : ViewModelBase
+    public class HomePageViewModel : ViewModelBase
     {
-        public ObservableCollection<Student> StudentData { get; set; }
+        public ObservableCollection<Student> TestStudents { get; set; }
 
         public HomePageViewModel()
         {
-            // Sample data for the DataGrid
-            StudentData = new ObservableCollection<Student>
+            // Hardcoded student data
+            TestStudents = new ObservableCollection<Student>
             {
-                new Student { Name = "John Doe", Block = "A", Year = 3, Grade = "A" },
-                new Student { Name = "Jane Smith", Block = "B", Year = 2, Grade = "B+" },
-                new Student { Name = "Alice Johnson", Block = "C", Year = 4, Grade = "A-" },
-                new Student { Name = "Bob Brown", Block = "A", Year = 1, Grade = "C" }
+                new Student { Name = "John Doe", Block = "A", Year = "2023", Grade = "A+" },
+                new Student { Name = "Jane Smith", Block = "B", Year = "2022", Grade = "B" },
+                new Student { Name = "Michael Johnson", Block = "C", Year = "2021", Grade = "C" }
             };
         }
     }
@@ -24,7 +22,7 @@ namespace StudentManagementSystem.ViewModels
     {
         public string Name { get; set; }
         public string Block { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public string Grade { get; set; }
     }
 }

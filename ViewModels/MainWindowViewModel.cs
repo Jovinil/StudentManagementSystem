@@ -50,16 +50,7 @@ namespace StudentManagementSystem.ViewModels
             if (instance is null) return;
             CurrentPage = (ViewModelBase)instance;
         }
-        
-        // Centralized navigation method
-        public void NavigateTo(Type viewModelType)
-        {
-            if (Activator.CreateInstance(viewModelType) is ViewModelBase instance)
-            {
-                CurrentPage = instance;
-            }
-        }
-        
+
         [RelayCommand]
         private void TriggerPane() 
         {
