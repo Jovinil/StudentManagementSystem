@@ -6,11 +6,12 @@ using Avalonia.Markup.Xaml;
 using StudentManagementSystem.ViewModels;
 using StudentManagementSystem.Views;
 using System.Linq;
+using Avalonia.Controls;
 
 namespace StudentManagementSystem
 {
     public partial class App : Application
-    {
+    {   
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -44,5 +45,6 @@ namespace StudentManagementSystem
                 BindingPlugins.DataValidators.Remove(plugin);
             }
         }
+        
     }
 }

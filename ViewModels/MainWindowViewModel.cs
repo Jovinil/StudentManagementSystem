@@ -20,14 +20,14 @@ namespace StudentManagementSystem.ViewModels
         public ObservableCollection<ListItemTemplate> Items { get; } = new ObservableCollection<ListItemTemplate>()
         {
             new ListItemTemplate(typeof(HomePageViewModel), "home_regular"),
-            new ListItemTemplate(typeof(ClassPageViewModel), "person_available_regular"),
+            new ListItemTemplate(typeof(ClassPageViewModel), "guest_regular"),
         };
         
         // Footer navigation items
         public ObservableCollection<ListItemTemplate> FooterItems { get; } = new ObservableCollection<ListItemTemplate>()
         {
-            new ListItemTemplate(typeof(SettingsPageViewModel), "person_available_regular"),
-            new ListItemTemplate(typeof(LoginPageViewModel), "person_available_regular")
+            new ListItemTemplate(typeof(SettingsPageViewModel), "people_settings_regular"),
+            new ListItemTemplate(typeof(LoginPageViewModel), "person_regular")
         };
 
         [ObservableProperty] 
