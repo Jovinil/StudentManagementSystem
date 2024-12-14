@@ -19,8 +19,7 @@
 		   OpenPaneLength="200"
 		   CompactPaneLength="48"
 		   DisplayMode="CompactInline"
-		   Background="#1e1e1e"
-	       PaneBackground="#1e1e1e">
+		   >
 		<SplitView.Pane>
 			<Grid>
 				<!-- Define two rows: one for the main navigation and one for the footer -->
@@ -68,6 +67,7 @@
 					<TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
 			</Border>
 		</SplitView.Content>
+		
 	</SplitView>
 
 
