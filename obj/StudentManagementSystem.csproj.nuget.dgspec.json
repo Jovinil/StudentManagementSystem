@@ -1,21 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jovin\\source\\repos\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
+    "C:\\Users\\CAMACHO\\source\\repos\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jovin\\source\\repos\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
+    "C:\\Users\\CAMACHO\\source\\repos\\StudentManagementSystem\\StudentManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jovin\\source\\repos\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\CAMACHO\\source\\repos\\StudentManagementSystem\\StudentManagementSystem.csproj",
         "projectName": "StudentManagementSystem",
-        "projectPath": "C:\\Users\\jovin\\source\\repos\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-        "packagesPath": "C:\\Users\\jovin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jovin\\source\\repos\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
+        "projectPath": "C:\\Users\\CAMACHO\\source\\repos\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "packagesPath": "C:\\Users\\CAMACHO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\CAMACHO\\source\\repos\\StudentManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
-        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
-          "C:\\Users\\jovin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\CAMACHO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

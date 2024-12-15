@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:StudentManagementSystem.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="vm:LoginSignupPageViewModel"
+             x:Class="StudentManagementSystem.Views.LoginSignupPageView">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="3*" />
+		</Grid.ColumnDefinitions>
+
+		<!-- Login Form Section -->
+		<StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+			<TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
+			<TextBlock HorizontalAlignment="Center">
+				<Run Text="{Binding RunText}" />
+				<InlineUIContainer>
+					<Button Command="{Binding ChangeLoginSignupCommand}" Name="Btn" Background="Transparent" BorderBrush="Transparent" Padding="0">
+						<Button.Styles>
+							<Style Selector="Button">
+								<Setter Property="Foreground" Value="Blue" />
+								<!--<Setter Property="TextDecoration" Value="Underline" />-->
+								<Setter Property="Cursor" Value="Hand" />
+							</Style>
+						</Button.Styles>
+						<Button.Content>
+							<TextBlock Text="{Binding NavText}" TextDecorations="Underline" />
+						</Button.Content>
+					</Button>
+				</InlineUIContainer>
+			</TextBlock>
+
+
+		</StackPanel>
+
+		<!-- Image Section -->
+		<Image Source="/Assets/avalonia-logo.ico" Stretch="UniformToFill" Grid.Column="1" />
+
+	</Grid>
+</UserControl>

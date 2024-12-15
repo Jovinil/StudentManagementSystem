@@ -25,4 +25,10 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\LoginSignupPageView.axaml.cs">
+      <DependentUpon>LoginSignupPageView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

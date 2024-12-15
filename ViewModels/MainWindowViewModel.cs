@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Mime;
 using Avalonia;
 using Avalonia.Controls;
@@ -11,6 +12,13 @@ namespace StudentManagementSystem.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
+
+        [RelayCommand]
+        private void ChangeToSignup()
+        {
+            //Debug.WriteLine("reacged");
+        }
+
         [ObservableProperty]
         private bool _isPaneOpen = true;
 
@@ -27,7 +35,7 @@ namespace StudentManagementSystem.ViewModels
         public ObservableCollection<ListItemTemplate> FooterItems { get; } = new ObservableCollection<ListItemTemplate>()
         {
             new ListItemTemplate(typeof(SettingsPageViewModel), "people_settings_regular"),
-            new ListItemTemplate(typeof(LoginPageViewModel), "person_regular")
+            new ListItemTemplate(typeof(LoginSignupPageViewModel), "person_regular")
         };
 
         [ObservableProperty] 
@@ -73,4 +81,5 @@ namespace StudentManagementSystem.ViewModels
         public Type ModelType { get; }
         public StreamGeometry ListItemIcon { get; }
     }
+
 }
