@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:StudentManagementSystem.ViewModels"
+			 xmlns:vm="using:StudentManagementSystem.ViewModels"
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudentManagementSystem.Views.HomePageView">
@@ -27,16 +28,56 @@
                 BorderBrush="#3E3E3E"
                 BorderThickness="2">
             <Grid Margin="10">
-                <DataGrid ItemsSource="{Binding StudentData}" AutoGenerateColumns="False" IsReadOnly="True" Margin="20"
+                <DataGrid Name="StudentsTable" ItemsSource="{Binding Students}" AutoGenerateColumns="False" IsReadOnly="True" Margin="20"
                           Background="#2E2E2E" Foreground="White">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Block" Binding="{Binding Block}" Width="*" />
-                        <DataGridTextColumn Header="Year" Binding="{Binding Year}" Width="*" />
+                        <DataGridTextColumn Header="Name" Binding="{Binding Student.FullName}" Width="*" />
+                        <DataGridTextColumn Header="Block" Binding="{Binding Student.Block.Name}" Width="*" />
+                        <DataGridTextColumn Header="Year" Binding="{Binding Student.Year}" Width="*" />
+                        <DataGridTextColumn Header="Course" Binding="{Binding Course.Name}" Width="*" />
                         <DataGridTextColumn Header="Grade" Binding="{Binding Grade}" Width="*" />
+						<DataGridTemplateColumn Header="Actions">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
+										<Button Command="{Binding #StudentsTable.((vm:HomePageViewModel)DataContext).TriggerEditModalCommand}" Content="Edit" />
+										<Button Command="{Binding #StudentsTable.((vm:HomePageViewModel)DataContext).TriggerDeleteModalCommand}" Content="Delete" />
+									</StackPanel>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Border>
+
+		<!--Edit Modal-->
+		<Border IsVisible="{Binding IsEditModalVisible}" Grid.RowSpan="2" Opacity="0.5" ZIndex="1" Background="Gray" />
+			<Border IsVisible="{Binding IsEditModalVisible}" Width="356" Background="#2E2E2E" Grid.RowSpan="2" ZIndex="2" Padding="20" CornerRadius="14" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<StackPanel Spacing="20">
+					<TextBlock Text="Edit Student" FontWeight="Bold" FontSize="20" />
+					<TextBox Watermark="First Name" Foreground="White" />
+					<TextBox Watermark="Middle Name" Foreground="White" />
+					<TextBox Watermark="Last Name" Foreground="White" />
+					<TextBox Watermark="Grade(0.00)" Foreground="White" />
+					<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+						<Button Command="{Binding TriggerEditModalCommand}" Background="Red" Content="Cancel" />
+						<Button Background="Green" Content="Save" />
+					</StackPanel>
+				</StackPanel>
+			</Border>
+		
+		<!--Delete Modal-->
+		<Border IsVisible="{Binding IsDeleteModalVisible}" Background="Gray" Grid.RowSpan="2" Opacity="0.5" ZIndex="1" />
+		<Border IsVisible="{Binding IsDeleteModalVisible}" Background="#2E2E2E" ZIndex="2" Padding="20" Grid.RowSpan="2" CornerRadius="14" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<StackPanel Spacing="20">
+				<TextBlock Text="Confirm Deletion" FontWeight="Bold" FontSize="20" />
+				<TextBlock Foreground="White" Text="Do you want to delete this student?" />
+				<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+					<Button Command="{Binding TriggerDeleteModalCommand}" Background="Green" Content="Cancel" />
+					<Button Background="Red" Content="Delete" />
+				</StackPanel>
+			</StackPanel>
+		</Border>
     </Grid>
 </UserControl>

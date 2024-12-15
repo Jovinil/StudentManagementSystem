@@ -12,7 +12,8 @@ namespace StudentManagementSystem.Models
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public int Age { get; set; }
-        public int BlockId {  get; set; }
+        public int Year {  get; set; }
+        public Block Block { get; set; }
+        public string FullName { get; set; }
     }
 }

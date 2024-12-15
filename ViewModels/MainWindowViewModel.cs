@@ -8,7 +8,9 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using StudentManagementSystem.Helper;
 using StudentManagementSystem.Messages;
+using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.ViewModels
 {
@@ -20,6 +22,16 @@ namespace StudentManagementSystem.ViewModels
         {
             _messenger.Register<MainWindowViewModel, LoginSuccessMessage>(this, (_, messaage) =>
             {
+                Auth.CurrentUser = new User
+                {
+                    Id = messaage.Value.Id,
+                    FirstName = messaage.Value.FirstName,
+                    MiddleName = messaage.Value.MiddleName,
+                    LastName = messaage.Value.LastName,
+                    Username = messaage.Value.Username
+
+                };
+
                 CurrentPage = new HomePageViewModel();
             });
         }

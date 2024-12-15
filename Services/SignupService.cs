@@ -22,15 +22,15 @@ namespace StudentManagementSystem.Services
                 conn.Open();
                 string query = @"insert into Users(first_name, middle_name, last_name, username, password) 
                                 values(@first_name, @middle_name, @last_name, @username, hashbytes('sha2_512', @password));";
-                using (var command = new SqlCommand(query, conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    command.Parameters.AddWithValue("first_name", user.FirstName);
-                    command.Parameters.AddWithValue("middle_name", user.MiddleName == null ? "" : user.MiddleName);
-                    command.Parameters.AddWithValue("last_name", user.LastName);
-                    command.Parameters.AddWithValue("username", user.Username);
-                    command.Parameters.AddWithValue("password", user.Password);
-
-                    return command.ExecuteNonQuery() == 1;
+                    cmd.Parameters.AddWithValue("first_name", user.FirstName);
+                    cmd.Parameters.AddWithValue("middle_name", user.MiddleName == null ? "" : user.MiddleName);
+                    cmd.Parameters.AddWithValue("last_name", user.LastName);
+                    cmd.Parameters.AddWithValue("username", user.Username);
+                    cmd.Parameters.AddWithValue("password", user.Password);
+                        
+                    return cmd.ExecuteNonQuery() == 1;
                 }
             }
         }
