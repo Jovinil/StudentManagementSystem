@@ -1,5 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using StudentManagementSystem.Messages;
 using System;
 using System.Collections.Generic;
 
@@ -17,7 +19,17 @@ namespace StudentManagementSystem.ViewModels
         [ObservableProperty]
 		private ViewModelBase _currentPage = new LoginPageViewModel();
 
-		[RelayCommand]
+		private readonly IMessenger _messenger = WeakReferenceMessenger.Default;
+
+        public LoginSignupPageViewModel()
+        {
+            _messenger.Register<LoginSignupPageViewModel, SignupSuccessMessage>(this, (_, message) =>
+            {
+				ChangeLoginSignup();
+            });
+        }
+
+        [RelayCommand]
         private void ChangeLoginSignup()
 		{
 			if(CurrentPage is LoginPageViewModel)

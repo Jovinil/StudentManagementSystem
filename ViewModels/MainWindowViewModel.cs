@@ -7,23 +7,28 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using StudentManagementSystem.Messages;
 
 namespace StudentManagementSystem.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
 
-        [RelayCommand]
-        private void ChangeToSignup()
+        private readonly IMessenger _messenger = WeakReferenceMessenger.Default;
+        public MainWindowViewModel()
         {
-            //Debug.WriteLine("reacged");
+            _messenger.Register<MainWindowViewModel, LoginSuccessMessage>(this, (_, messaage) =>
+            {
+                CurrentPage = new HomePageViewModel();
+            });
         }
 
         [ObservableProperty]
         private bool _isPaneOpen = true;
 
         [ObservableProperty]
-        private ViewModelBase _currentPage = new HomePageViewModel();
+        private ViewModelBase _currentPage = new LoginSignupPageViewModel();
 
         public ObservableCollection<ListItemTemplate> Items { get; } = new ObservableCollection<ListItemTemplate>()
         {

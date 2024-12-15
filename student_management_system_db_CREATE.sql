@@ -34,7 +34,7 @@ create table grades(
 	id int primary key identity(0,1),
 	course_id int,
 	student_id int,
-	grade decimal(2,2) not null
+	mark decimal(2,2) not null
 	constraint FK_CoursesGrades foreign key(course_id) references courses(id) on delete cascade,
 	constraint FK_StudentsGrades foreign key(student_id) references students(id) on delete cascade
 );
