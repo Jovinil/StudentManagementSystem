@@ -16,16 +16,49 @@
 
         <!-- Dynamic Grid -->
         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <Grid Name="DynamicGrid" Margin="20">
-                <!-- Rows and columns will be populated programmatically -->
-            </Grid>
+
+			<ItemsControl Margin="0 40 0 0" ItemsSource="{Binding Students}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border>
+								<StackPanel Spacing="5" Orientation="Horizontal">
+									<TextBlock Text="{Binding Student.FullName}" />
+									<TextBlock Text="{Binding Grade}" />
+								</StackPanel>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			
+				<!--<ItemsControl Name="StudentsSomething" ItemsSource="{Binding Students}">
+					<ContentControl.ContentTemplate>
+						<DataTemplate>
+							<WrapPanel>
+								<StackPanel Spacing="5">
+									<TextBlock Text="{Binding #StudentsSomething.((vm:ClassPageViewModel)DataContext).Grade}" />
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding }" />
+										<TextBlock Text="{Binding }" />
+									</StackPanel>
+								</StackPanel>
+							</WrapPanel>
+						</DataTemplate>
+					</ContentControl.ContentTemplate>
+				</ItemsControl>-->
+			
         </ScrollViewer>
 
         <!-- Floating Action Button -->
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Width="45" Height="45" CornerRadius="10"
                 Background="Blue" Foreground="White" Margin="10"
-                Command="{Binding OpenModalCommand}">
+                Command="{Binding }">
             <Button.Content>
                 <!-- You can replace this TextBlock with an icon if desired -->
                 <TextBlock Text="+" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />

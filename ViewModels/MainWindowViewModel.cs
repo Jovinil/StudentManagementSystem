@@ -1,21 +1,46 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Mime;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using StudentManagementSystem.Helper;
+using StudentManagementSystem.Messages;
+using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
+
+        private readonly IMessenger _messenger = WeakReferenceMessenger.Default;
+        public MainWindowViewModel()
+        {
+            _messenger.Register<MainWindowViewModel, LoginSuccessMessage>(this, (_, messaage) =>
+            {
+                Auth.CurrentUser = new User
+                {
+                    Id = messaage.Value.Id,
+                    FirstName = messaage.Value.FirstName,
+                    MiddleName = messaage.Value.MiddleName,
+                    LastName = messaage.Value.LastName,
+                    Username = messaage.Value.Username
+
+                };
+
+                CurrentPage = new HomePageViewModel();
+            });
+        }
+
         [ObservableProperty]
         private bool _isPaneOpen = true;
 
         [ObservableProperty]
-        private ViewModelBase _currentPage = new HomePageViewModel();
+        private ViewModelBase _currentPage = new LoginSignupPageViewModel();
 
         public ObservableCollection<ListItemTemplate> Items { get; } = new ObservableCollection<ListItemTemplate>()
         {
@@ -27,7 +52,7 @@ namespace StudentManagementSystem.ViewModels
         public ObservableCollection<ListItemTemplate> FooterItems { get; } = new ObservableCollection<ListItemTemplate>()
         {
             new ListItemTemplate(typeof(SettingsPageViewModel), "people_settings_regular"),
-            new ListItemTemplate(typeof(LoginPageViewModel), "person_regular")
+            new ListItemTemplate(typeof(LoginSignupPageViewModel), "person_regular")
         };
 
         [ObservableProperty] 
@@ -73,4 +98,5 @@ namespace StudentManagementSystem.ViewModels
         public Type ModelType { get; }
         public StreamGeometry ListItemIcon { get; }
     }
+
 }

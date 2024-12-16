@@ -3,16 +3,40 @@ using Avalonia.Controls;
 using StudentManagementSystem.Views;
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
+using StudentManagementSystem.Models;
+using StudentManagementSystem.Repositories;
 
 namespace StudentManagementSystem.ViewModels
 {
-    public partial class ClassPageViewModel : ViewModelBase
+    partial class ClassPageViewModel : ViewModelBase
     {
-        [RelayCommand]
-        private void OpenModal()
+        private ObservableCollection<StudentGrade> _students;
+        public ObservableCollection<StudentGrade> Students
         {
-            var window = new ModalView();
-            window.Show();
+            get => _students;
+            set => SetProperty(ref _students, value);
+        }
+
+        private readonly IStudentRepository _studentRepository;
+
+        public ClassPageViewModel()
+        {
+            _studentRepository = new StudentRepository();
+            LoadStudents();
+        }
+
+        private async void LoadStudents()
+        {
+            _students = new ObservableCollection<StudentGrade>();
+            await foreach (var student in _studentRepository.GetAllWithGrade())
+            {
+                if (student != null)
+                {
+
+                    Students.Add(student);
+                }
+            }
         }
     }
 }

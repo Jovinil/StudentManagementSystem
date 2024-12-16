@@ -6,6 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="440"
         x:Class="StudentManagementSystem.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+		WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
         Title="StudentManagementSystem">
 

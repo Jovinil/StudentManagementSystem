@@ -1,29 +1,57 @@
 using System.Collections.ObjectModel;
 using System;
+using System.Diagnostics;
+using StudentManagementSystem.Helper;
+using StudentManagementSystem.Models;
+using StudentManagementSystem.Repositories;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 namespace StudentManagementSystem.ViewModels
 {
-    public class HomePageViewModel : ViewModelBase
+    partial class HomePageViewModel : ViewModelBase
     {
-        public ObservableCollection<Student> StudentData { get; set; }
+        [ObservableProperty]
+        private bool _isEditModalVisible = false;
+        [ObservableProperty]
+        private bool _isDeleteModalVisible = false;
+
+        private ObservableCollection<StudentGrade> _students;
+        public ObservableCollection<StudentGrade> Students
+        {
+            get => _students;
+            set => SetProperty(ref _students, value);
+        }
+
+        private readonly IStudentRepository _studentRepository;
 
         public HomePageViewModel()
         {
-            // Hardcoded student data
-            StudentData = new ObservableCollection<Student>
-            {
-                new Student { Name = "John Doe", Block = "A", Year = "2023", Grade = "A+" },
-                new Student { Name = "Jane Smith", Block = "B", Year = "2022", Grade = "B" },
-                new Student { Name = "Michael Johnson", Block = "C", Year = "2021", Grade = "C" }
-            };
-            
+            _studentRepository = new StudentRepository();
+            LoadStudents();
         }
-    }
+        private async void LoadStudents()
+        {
+            _students = new ObservableCollection<StudentGrade>();
+            await foreach(var student in _studentRepository.GetAllWithGrade())
+            {
+                if(student != null)
+                {
+                    
+                    Students.Add(student);
+                }
+            }
+        }
 
-    public class Student
-    {
-        public string Name { get; set; }
-        public string Block { get; set; }
-        public string Year { get; set; }
-        public string Grade { get; set; }
+        [RelayCommand]
+        public void TriggerEditModal()
+        { 
+            IsEditModalVisible = !IsEditModalVisible;
+        }
+
+        [RelayCommand]
+        public void TriggerDeleteModal()
+        {
+            IsDeleteModalVisible = !IsDeleteModalVisible;
+        }
     }
 }
