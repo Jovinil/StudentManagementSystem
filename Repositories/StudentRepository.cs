@@ -24,7 +24,7 @@ namespace StudentManagementSystem.Repositories
             using (var conn = SqlConn())
             {
                 conn.Open();
-                string query = "select CONCAT(first_name, middle_name, last_name) as fullname, b.name, s.year, c.name, sg.grade, s.id from studentGrades as sg" +
+                string query = "select CONCAT(first_name, ' ', middle_name, ' ', last_name) as fullname, b.name, s.year, c.name, sg.grade, s.id from studentGrades as sg" +
                     "\n join students as s on s.id = sg.student_id" +
                     "\n join blocks as b on s.block_id = b.id" +
                     "\n join courses as c on c.id = sg.course_id" +
@@ -66,10 +66,12 @@ namespace StudentManagementSystem.Repositories
             using(var conn = SqlConn())
             {
                 conn.Open();
-                string query = "select  s.id, s.first_name, s.middle_name, s.last_name, sg.grade from studentGrades as sg" +
+                string query = "select CONCAT(first_name, ' ', middle_name, ' ', last_name) as fullname, b.name, s.year, c.name, sg.grade, s.id, s.first_name, s.middle_name, s.last_name from studentGrades as sg" +
                     "\n join students as s on s.id = sg.student_id" +
-                    "\n where s.id = @Id;";
-                using(var cmd = new SqlCommand(query,conn))
+                    "\n join blocks as b on s.block_id = b.id" +
+                    "\n join courses as c on c.id = sg.course_id" +
+                    "\n where sg.student_id= @id;";
+                using (var cmd = new SqlCommand(query,conn))
                 {
                     cmd.Parameters.AddWithValue("Id", Id);
 
@@ -81,12 +83,22 @@ namespace StudentManagementSystem.Repositories
                             {
                                 Student = new Student
                                 {
-                                    Id = reader.GetInt32(0),
-                                    FirstName = reader.GetString(1),
-                                    MiddleName = reader.GetString(2),
-                                    LastName = reader.GetString(3)
+                                    FullName = reader.GetString(0),
+                                    Id = reader.GetInt32(5),
+                                    FirstName = reader.GetString(6),
+                                    MiddleName = reader.GetString(7),
+                                    LastName = reader.GetString(8),
+                                    Block = new Block
+                                    {
+                                        Name = reader.GetString(1)
+                                    },
+                                    Year = reader.GetInt32(2)
                                 },
-                                Grade = reader.GetSqlDecimal(4)
+                                Course = new Course
+                                {
+                                    Name = reader.GetString(3)
+                                },
+                                Grade = reader.IsDBNull(4) ? SqlDecimal.Parse("0") : reader.GetSqlDecimal(4)
                             };
                         }
                         return null;

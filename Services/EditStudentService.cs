@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,36 @@ namespace StudentManagementSystem.Services
 {
     public interface IEditProductService
     {
-        void UpdateProduct(int id, string FirstName, string MiddleName, string LastName, SqlDecimal Grade);
+        void UpdateStudent(int id, string FirstName, string MiddleName, string LastName, SqlDecimal Grade);
     }
 
     public class EditProductService : DatabaseConnection, IEditProductService
     {
-        public void UpdateProduct(int id, string FirstName, string MiddleName, string LastName, SqlDecimal Grade)
+        public void UpdateStudent(int id, string FirstName, string MiddleName, string LastName, SqlDecimal Grade)
         {
-            UpdateName(id, FirstName, MiddleName, LastName);
-            UpdateGrade(id, Grade);
+            Debug.WriteLine(id);
+            using (var conn = SqlConn())
+            {
+                conn.Open();
+                string query = "update students set first_name=@first_name, middle_name=@middle_name, last_name=@last_name where id=@id;";
+                string query1 = "update studentGrades set grade=@Grade where student_id=@id;";
+                using (var cmd1 = new SqlCommand(query1, conn))
+                {
+                    cmd1.Parameters.AddWithValue("id", id);
+                    cmd1.Parameters.AddWithValue("Grade", Grade);
+
+                    cmd1.ExecuteNonQuery();
+                }
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("id", id);
+                    cmd.Parameters.AddWithValue("first_name", FirstName);
+                    cmd.Parameters.AddWithValue("middle_name", MiddleName);
+                    cmd.Parameters.AddWithValue("last_name", LastName);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public bool UpdateName(int id, string FirstName, string MiddleName,string LastName)
@@ -30,9 +52,9 @@ namespace StudentManagementSystem.Services
                 using (var cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("id", id);
-                    cmd.Parameters.AddWithValue("name", FirstName);
-                    cmd.Parameters.AddWithValue("name", MiddleName);
-                    cmd.Parameters.AddWithValue("name", LastName);
+                    cmd.Parameters.AddWithValue("first_name", FirstName);
+                    cmd.Parameters.AddWithValue("middle_name", MiddleName);
+                    cmd.Parameters.AddWithValue("last_name", LastName);
 
                     return cmd.ExecuteNonQuery() == 1;
                 }

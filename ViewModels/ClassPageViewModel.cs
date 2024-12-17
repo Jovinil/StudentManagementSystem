@@ -88,7 +88,6 @@ namespace StudentManagementSystem.ViewModels
                 {
                     studlist.Add(student);
                     
-                    Debug.WriteLine(BlocksWithStudents);
                 }
                 var temp = new BlockWithStudent
                 {
