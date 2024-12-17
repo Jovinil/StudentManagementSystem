@@ -24,7 +24,7 @@ namespace StudentManagementSystem.Repositories
             using (var conn = SqlConn())
             {
                 conn.Open();
-                string query = "select CONCAT(first_name, middle_name, last_name) as fullname, b.name, s.year, c.name, sg.grade from studentGrades as sg" +
+                string query = "select CONCAT(first_name, middle_name, last_name) as fullname, b.name, s.year, c.name, sg.grade, s.id from studentGrades as sg" +
                     "\n join students as s on s.id = sg.student_id" +
                     "\n join blocks as b on s.block_id = b.id" +
                     "\n join courses as c on c.id = sg.course_id" +
@@ -42,6 +42,7 @@ namespace StudentManagementSystem.Repositories
                                 Student = new Student
                                 {
                                     FullName = reader.GetString(0),
+                                    Id = reader.GetInt32(5),
                                     Block = new Block
                                     {
                                         Name = reader.GetString(1)
@@ -88,10 +89,7 @@ namespace StudentManagementSystem.Repositories
                                 Grade = reader.GetSqlDecimal(4)
                             };
                         }
-                        else
-                        {
-                            return null;
-                        }
+                        return null;
                     }
                 }
             }

@@ -35,7 +35,6 @@ namespace project_open.Services
 
                         using (var reader = await command.ExecuteReaderAsync(System.Data.CommandBehavior.CloseConnection))
                         {
-                            conn.Close();
                             return reader.Read() ? result = new(reader.GetInt32(0)) : null;
                         }
                     }

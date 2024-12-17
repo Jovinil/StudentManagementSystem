@@ -54,6 +54,8 @@ namespace StudentManagementSystem.ViewModels
             _courseRepository = new CourseRepository();
             _blockRepository = new BlockRepository();
             _addStudentsService = new AddStudentService();
+            LoadBlocks();
+            LoadCourses();
             LoadBlocksWithStudents();
         }
 
@@ -95,14 +97,13 @@ namespace StudentManagementSystem.ViewModels
                 };
                 BlocksWithStudents.Add(temp);
 
+
             }
         }
 
         [RelayCommand]
         public void TriggerAddModal()
         {
-            LoadBlocks();
-            LoadCourses();
             IsAddModalVisible = !IsAddModalVisible;
         }
 

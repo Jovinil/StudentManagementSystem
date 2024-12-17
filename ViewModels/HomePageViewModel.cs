@@ -13,6 +13,9 @@ namespace StudentManagementSystem.ViewModels
     partial class HomePageViewModel : ViewModelBase
     {
         [ObservableProperty]
+        private int _negative = -1;
+
+        [ObservableProperty]
         private bool _isEditModalVisible = false;
         [ObservableProperty]
         private bool _isDeleteModalVisible = false;
@@ -53,20 +56,15 @@ namespace StudentManagementSystem.ViewModels
         public void TriggerEditModal(int id)
         {
 
-            if(id != -1)
-            {
                 SelectedStudent = _studentRepository.GetStudent(id);
-            }
             IsEditModalVisible = !IsEditModalVisible;
         }
 
         [RelayCommand]
         public void TriggerDeleteModal(int id)
         {
-            if(id  !=  -1)
-            {
+            Debug.WriteLine(id);
                 SelectedStudent = _studentRepository.GetStudent(id);
-            }
             IsDeleteModalVisible = !IsDeleteModalVisible;
         }
 
@@ -78,6 +76,7 @@ namespace StudentManagementSystem.ViewModels
             StudentGrade temp = Students.First(x => x.Student.Id == id);
             if (temp != null)
             {
+                Debug.WriteLine("readceasda");
                 Students.Remove(temp);
             }
             IsDeleteModalVisible = false;
