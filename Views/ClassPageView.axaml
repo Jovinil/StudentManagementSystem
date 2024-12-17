@@ -17,7 +17,7 @@
         <!-- Dynamic Grid -->
         <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
-			<ItemsControl Margin="0 40 0 0" ItemsSource="{Binding Students}">
+			<ItemsControl Margin="0 40 0 0" ItemsSource="{Binding BlocksWithStudents}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<WrapPanel />
@@ -26,44 +26,64 @@
 
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Border>
-								<StackPanel Spacing="5" Orientation="Horizontal">
-									<TextBlock Text="{Binding Student.FullName}" />
-									<TextBlock Text="{Binding Grade}" />
+						<Border BorderThickness="1" BorderBrush="Gray" Background="#1e1e1e" CornerRadius="5" Margin="5" Padding="4">
+								<StackPanel Spacing="5">
+									<TextBlock  FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Text="{Binding Block.Name}" />
+									<ScrollViewer>
+										<DataGrid Margin="20" ItemsSource="{Binding StudentsWithGrade}" IsReadOnly="True" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+								   GridLinesVisibility="None"
+								   BorderThickness="1" BorderBrush="Gray">
+											<DataGrid.Columns>
+												<DataGridTextColumn Header="First Name"  Binding="{Binding Student.FullName}"/>
+												<DataGridTextColumn Header="Grade" Binding="{Binding Grade}" />
+											</DataGrid.Columns>
+										</DataGrid>
+									</ScrollViewer>
 								</StackPanel>
 						</Border>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
-			
-				<!--<ItemsControl Name="StudentsSomething" ItemsSource="{Binding Students}">
-					<ContentControl.ContentTemplate>
-						<DataTemplate>
-							<WrapPanel>
-								<StackPanel Spacing="5">
-									<TextBlock Text="{Binding #StudentsSomething.((vm:ClassPageViewModel)DataContext).Grade}" />
-									<StackPanel Orientation="Horizontal">
-										<TextBlock Text="{Binding }" />
-										<TextBlock Text="{Binding }" />
-									</StackPanel>
-								</StackPanel>
-							</WrapPanel>
-						</DataTemplate>
-					</ContentControl.ContentTemplate>
-				</ItemsControl>-->
-			
         </ScrollViewer>
 
         <!-- Floating Action Button -->
         <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Width="45" Height="45" CornerRadius="10"
                 Background="Blue" Foreground="White" Margin="10"
-                Command="{Binding }">
+                Command="{Binding TriggerAddModalCommand}">
             <Button.Content>
                 <!-- You can replace this TextBlock with an icon if desired -->
                 <TextBlock Text="+" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Button.Content>
         </Button>
+
+		<!--Edit Modal-->
+		<Border IsVisible="{Binding IsAddModalVisible}" Opacity="0.5" ZIndex="1" Background="Gray" />
+		<Border IsVisible="{Binding IsAddModalVisible}" Width="356" Background="#2E2E2E" ZIndex="2" Padding="20" CornerRadius="14" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<StackPanel Spacing="20">
+				<TextBlock FontSize="20" FontWeight="Bold" Text="Add Students" />
+				<ComboBox SelectedValue="{Binding SelectedBlock}" SelectedValueBinding="{Binding Id}" ItemsSource="{Binding Blocks}" PlaceholderText="Blocks" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<ComboBox SelectedValue="{Binding SelectedCourse}" SelectedValueBinding="{Binding Id}" ItemsSource="{Binding Courses}" PlaceholderText="Courses" Margin="0,0,0,15" HorizontalAlignment="Stretch">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+					<Button Command="{Binding TriggerAddModalCommand}" Background="Red" Content="Cancel" />
+					<Button Command="{Binding AddStudentsCommand}" Background="Green" Content="Add" />
+				</StackPanel>
+			</StackPanel>
+		</Border>
     </Grid>
+	
+	
     
 </UserControl>
