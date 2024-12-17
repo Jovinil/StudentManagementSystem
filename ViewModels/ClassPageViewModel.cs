@@ -114,4 +114,9 @@ namespace StudentManagementSystem.ViewModels
             TriggerAddModal();
         }
     }
+    public record BlockWithStudent()
+    {
+        public Block Block { get; internal set; }
+        public ObservableCollection<StudentGrade> StudentsWithGrade { get; internal set; }
+    }
 }
