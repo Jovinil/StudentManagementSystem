@@ -18,11 +18,20 @@ namespace StudentManagementSystem.ViewModels
             set => SetProperty(ref _students, value);
         }
 
+        private ObservableCollection<Block> _blocks;
+        public ObservableCollection<Block> Blocks
+        {
+            get => _blocks;
+            set => SetProperty(ref _blocks, value);
+        }
+
         private readonly IStudentRepository _studentRepository;
+        private readonly IBlockRepository _blockRepository;
 
         public ClassPageViewModel()
         {
             _studentRepository = new StudentRepository();
+            _blockRepository = new BlockRepository();
             LoadStudents();
         }
 
@@ -38,5 +47,11 @@ namespace StudentManagementSystem.ViewModels
                 }
             }
         }
+
+        private void LoadBlocksWithStudents()
+        {
+            
+        }
     }
+    public record BlockWithStudent()
 }

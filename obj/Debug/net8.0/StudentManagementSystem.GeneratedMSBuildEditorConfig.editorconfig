@@ -16,36 +16,36 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StudentManagementSystem
-build_property.ProjectDir = C:\Users\CAMACHO\source\repos\StudentManagementSystem\
+build_property.ProjectDir = C:\Users\jovin\source\repos\StudentManagementSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/App.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Assets/Icons.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Assets/Icons.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/ClassPageView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/ClassPageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/HomePageView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/HomePageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/LoginPageView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/LoginPageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/LoginSignupPageView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/LoginSignupPageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/MainWindow.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/ModalView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/ModalView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/SettingsPageView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/SettingsPageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/CAMACHO/source/repos/StudentManagementSystem/Views/SignUpPageView.axaml]
+[C:/Users/jovin/source/repos/StudentManagementSystem/Views/SignUpPageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
