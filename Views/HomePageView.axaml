@@ -31,17 +31,17 @@
                 <DataGrid Name="StudentsTable" ItemsSource="{Binding Students}" AutoGenerateColumns="False" IsReadOnly="True" Margin="20"
                           Background="#2E2E2E" Foreground="White">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Student.FullName}" Width="*" />
+                        <DataGridTextColumn Header="Name" Binding="{Binding Student.FullName}" Width="4*" />
                         <DataGridTextColumn Header="Block" Binding="{Binding Student.Block.Name}" Width="*" />
                         <DataGridTextColumn Header="Year" Binding="{Binding Student.Year}" Width="*" />
-                        <DataGridTextColumn Header="Course" Binding="{Binding Course.Name}" Width="*" />
+                        <DataGridTextColumn Header="Course" Binding="{Binding Course.Name}" Width="2*" />
                         <DataGridTextColumn Header="Grade" Binding="{Binding Grade}" Width="*" />
 						<DataGridTemplateColumn Header="Actions">
 							<DataGridTemplateColumn.CellTemplate>
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">
-										<Button Command="{Binding #StudentsTable.((vm:HomePageViewModel)DataContext).TriggerEditModalCommand}" Content="Edit" />
-										<Button Command="{Binding #StudentsTable.((vm:HomePageViewModel)DataContext).TriggerDeleteModalCommand}" Content="Delete" />
+										<Button CommandParameter="{Binding Student.Id}" Command="{Binding #StudentsTable.((vm:HomePageViewModel)DataContext).TriggerEditModalCommand}" Content="Edit" />
+										<Button CommandParameter="{Binding Student.Id}" Command="{Binding #StudentsTable.((vm:HomePageViewModel)DataContext).TriggerDeleteModalCommand}" Content="Delete" />
 									</StackPanel>
 								</DataTemplate>
 							</DataGridTemplateColumn.CellTemplate>
@@ -56,13 +56,13 @@
 			<Border IsVisible="{Binding IsEditModalVisible}" Width="356" Background="#2E2E2E" Grid.RowSpan="2" ZIndex="2" Padding="20" CornerRadius="14" HorizontalAlignment="Center" VerticalAlignment="Center">
 				<StackPanel Spacing="20">
 					<TextBlock Text="Edit Student" FontWeight="Bold" FontSize="20" />
-					<TextBox Watermark="First Name" Foreground="White" />
-					<TextBox Watermark="Middle Name" Foreground="White" />
-					<TextBox Watermark="Last Name" Foreground="White" />
-					<TextBox Watermark="Grade(0.00)" Foreground="White" />
+					<TextBox Watermark="First Name" Text="{Binding SelectedStudent.Student.FirstName}" Foreground="White" />
+					<TextBox Watermark="Middle Name" Text="{Binding SelectedStudent.Student.MiddleName}" Foreground="White" />
+					<TextBox Watermark="Last Name" Text="{Binding SelectedStudent.Student.LastName}" Foreground="White" />
+					<TextBox Watermark="Grade(0.00)" Text="{Binding SelectedStudentGrade}" Foreground="White" />
 					<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-						<Button Command="{Binding TriggerEditModalCommand}" Background="Red" Content="Cancel" />
-						<Button Background="Green" Content="Save" />
+						<Button Command="{Binding HideModalCommand}" Background="Red" Content="Cancel" />
+						<Button CommandParameter="{Binding SelectedStudent}" Command="{Binding EditStudentCommand}" Background="Green" Content="Save" />
 					</StackPanel>
 				</StackPanel>
 			</Border>
@@ -74,8 +74,8 @@
 				<TextBlock Text="Confirm Deletion" FontWeight="Bold" FontSize="20" />
 				<TextBlock Foreground="White" Text="Do you want to delete this student?" />
 				<StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-					<Button Command="{Binding TriggerDeleteModalCommand}" Background="Green" Content="Cancel" />
-					<Button Background="Red" Content="Delete" />
+					<Button Command="{Binding HideModalCommand}" Background="Green" Content="Cancel" />
+					<Button CommandParameter="{Binding SelectedStudent.Student.Id}" Command="{Binding DeleteStudentCommand}" Background="Red" Content="Delete" />
 				</StackPanel>
 			</StackPanel>
 		</Border>

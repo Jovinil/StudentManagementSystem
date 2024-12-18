@@ -13,7 +13,7 @@ namespace StudentManagementSystem.Repositories
     public interface IStudentRepository
     {
         IAsyncEnumerable<StudentGrade> GetAllWithGrade();
-        Student GetStudent(int Id);
+        StudentGrade GetStudent(int Id);
         IAsyncEnumerable<StudentGrade> GetStudentsByBlock(int Id);
     }
 
@@ -24,7 +24,7 @@ namespace StudentManagementSystem.Repositories
             using (var conn = SqlConn())
             {
                 conn.Open();
-                string query = "select CONCAT(first_name, middle_name, last_name) as fullname, b.name, s.year, c.name, sg.grade from studentGrades as sg" +
+                string query = "select CONCAT(first_name, ' ', middle_name, ' ', last_name) as fullname, b.name, s.year, c.name, sg.grade, s.id from studentGrades as sg" +
                     "\n join students as s on s.id = sg.student_id" +
                     "\n join blocks as b on s.block_id = b.id" +
                     "\n join courses as c on c.id = sg.course_id" +
@@ -42,6 +42,7 @@ namespace StudentManagementSystem.Repositories
                                 Student = new Student
                                 {
                                     FullName = reader.GetString(0),
+                                    Id = reader.GetInt32(5),
                                     Block = new Block
                                     {
                                         Name = reader.GetString(1)
@@ -60,9 +61,50 @@ namespace StudentManagementSystem.Repositories
             }
         }
 
-        public Student GetStudent(int Id)
+        public StudentGrade GetStudent(int Id)
         {
-            return null;
+            using(var conn = SqlConn())
+            {
+                conn.Open();
+                string query = "select CONCAT(first_name, ' ', middle_name, ' ', last_name) as fullname, b.name, s.year, c.name, sg.grade, s.id, s.first_name, s.middle_name, s.last_name from studentGrades as sg" +
+                    "\n join students as s on s.id = sg.student_id" +
+                    "\n join blocks as b on s.block_id = b.id" +
+                    "\n join courses as c on c.id = sg.course_id" +
+                    "\n where sg.student_id= @id;";
+                using (var cmd = new SqlCommand(query,conn))
+                {
+                    cmd.Parameters.AddWithValue("Id", Id);
+
+                    using(var reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
+                    {
+                        if (reader.Read())
+                        {
+                            return new StudentGrade
+                            {
+                                Student = new Student
+                                {
+                                    FullName = reader.GetString(0),
+                                    Id = reader.GetInt32(5),
+                                    FirstName = reader.GetString(6),
+                                    MiddleName = reader.GetString(7),
+                                    LastName = reader.GetString(8),
+                                    Block = new Block
+                                    {
+                                        Name = reader.GetString(1)
+                                    },
+                                    Year = reader.GetInt32(2)
+                                },
+                                Course = new Course
+                                {
+                                    Name = reader.GetString(3)
+                                },
+                                Grade = reader.IsDBNull(4) ? SqlDecimal.Parse("0") : reader.GetSqlDecimal(4)
+                            };
+                        }
+                        return null;
+                    }
+                }
+            }
         }
 
         public async IAsyncEnumerable<StudentGrade> GetStudentsByBlock(int Id)

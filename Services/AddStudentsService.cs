@@ -21,7 +21,7 @@ namespace StudentManagementSystem.Services
             using (var conn = SqlConn())
             {
                 conn.Open();
-                string query = "intsert into studentGrades(course_id, student_id, user_id)" +
+                string query = "insert into studentGrades(course_id, student_id, user_id)" +
                     "\n select @CourseId, id, @UserId" +
                     "\n from students where block_id = @BlockId";
                 using(var cmd = new SqlCommand(query, conn))

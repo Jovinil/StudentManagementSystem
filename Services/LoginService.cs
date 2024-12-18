@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Avalonia;
+using Microsoft.Data.SqlClient;
 using StudentManagementSystem;
 using System;
 using System.Collections;
@@ -20,35 +21,36 @@ namespace project_open.Services
         public async Task<AuthenticationResult?> Authenticate(string username, string password)
         {
             AuthenticationResult result = null;
-            //if (username == null || password == null)
-            //    return null;
-            using (var conn = SqlConn())
-            {
-                conn.Open();
-                string query = @"select id,first_name,middle_name,last_name,username from users where username=@username and password=hashbytes('sha2_512', @password);";
-                using (var command = new SqlCommand(query, conn))
-                {
-                    command.Parameters.AddWithValue("username", username);
-                    command.Parameters.AddWithValue("password", password);
 
-                    using (var reader = await command.ExecuteReaderAsync(System.Data.CommandBehavior.CloseConnection))
+            try
+            {
+                using (var conn = SqlConn())
+                {
+                    conn.Open();
+                    string query = @"select id from users where username=@username and password=hashbytes('sha2_512', @password);";
+                    using (var command = new SqlCommand(query, conn))
                     {
-                        return reader.Read() ? result = new(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4)) : null;
+                        command.Parameters.AddWithValue("username", username);
+                        command.Parameters.AddWithValue("password", password);
+
+                        using (var reader = await command.ExecuteReaderAsync(System.Data.CommandBehavior.CloseConnection))
+                        {
+                            return reader.Read() ? result = new(reader.GetInt32(0)) : null;
+                        }
                     }
                 }
             }
+            catch (SqlException e)
+            {
+
+                System.Environment.Exit(1);
+            }
+            return null;
         }
     }
 
     public record AuthenticationResult(
-        int Id,
-        string FirstName,
-        string? MiddleName,
-        string LastName,
-        string Username
-        )
-    {
-        public string FullName = $"{FirstName} {MiddleName} {LastName}";
-    }
+        int Id
+    );
 
 }

@@ -24,11 +24,7 @@ namespace StudentManagementSystem.ViewModels
             {
                 Auth.CurrentUser = new User
                 {
-                    Id = messaage.Value.Id,
-                    FirstName = messaage.Value.FirstName,
-                    MiddleName = messaage.Value.MiddleName,
-                    LastName = messaage.Value.LastName,
-                    Username = messaage.Value.Username
+                    Id = messaage.Value.Id
 
                 };
 
